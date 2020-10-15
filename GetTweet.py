@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[25]:
+# In[4]:
 
 
 import re
@@ -10,7 +10,7 @@ import sys
 from requests_oauthlib import OAuth1Session
 
 
-# In[26]:
+# In[5]:
 
 
 CONSUMER_KEY = 'GH9vERo5nlddVVREXFIpaGAst'
@@ -19,7 +19,7 @@ ACCESS_TOKEN = '1090500433-zanofeFnpZf0PeJrkhCuk6FzF1Cgq1mq7etWwzN'
 ACCESS_TOKEN_SECRET = '7JA2j5D6sCc9o9VX2S6IZgp17QTqxNj9cNHkQEVc94yAX'
 
 
-# In[27]:
+# In[7]:
 
 
 #ツイートを抽出
@@ -30,14 +30,14 @@ def __get_tweet(user_id):
     
     res = twitter.get(url,params = params)
     timelines = json.loads(res.text)
-    tweets = []
+    tweets = ''
     for x in timelines:
-        tweets.append(x['text'])
+        tweets += x['text'] + ' '
     
     return tweets
 
 
-# In[28]:
+# In[8]:
 
 
 #getter
@@ -45,13 +45,7 @@ def get_tweet_text(tweet_user):
     return  __get_tweet(tweet_user)
 
 
-# In[29]:
-
-
-get_tweet_text('03natsuki30')
-
-
-# In[30]:
+# In[12]:
 
 
 import subprocess
