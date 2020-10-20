@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[21]:
+# In[29]:
 
 
+import re
 import MeCab
 
 
-# In[22]:
+# In[30]:
 
 
 def remove_url(text):
@@ -16,7 +17,7 @@ def remove_url(text):
     return r
 
 
-# In[25]:
+# In[31]:
 
 
 def pic_and_analyze_noun(text):
@@ -30,7 +31,7 @@ def pic_and_analyze_noun(text):
     return ' '.join(splitted)
 
 
-# In[27]:
+# In[32]:
 
 
 import subprocess
