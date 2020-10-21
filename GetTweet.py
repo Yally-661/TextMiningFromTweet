@@ -19,7 +19,7 @@ AT = '1090500433-zanofeFnpZf0PeJrkhCuk6FzF1Cgq1mq7etWwzN' #ACCESS_TOKEN
 AS = '7JA2j5D6sCc9o9VX2S6IZgp17QTqxNj9cNHkQEVc94yAX' #ACCESS_TOKEN_SECRET
 
 
-# In[10]:
+# In[12]:
 
 
 class TwitterAPI:
@@ -39,11 +39,11 @@ class TwitterAPI:
 
         Returns
         -------
-        timelines : dict
-            ツイートデータ
-            200件分
+        tweet_list : list
+            全ツイート内容
 
         '''
+        #要エラーハンドリング追加
         tweet_list = []
         cnt = 1
         url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
@@ -134,7 +134,7 @@ def get_timeline(user_id):
     return tweet_text
 
 
-# In[9]:
+# In[11]:
 
 
 import subprocess
