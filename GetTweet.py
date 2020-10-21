@@ -19,7 +19,7 @@ AT = '1090500433-zanofeFnpZf0PeJrkhCuk6FzF1Cgq1mq7etWwzN' #ACCESS_TOKEN
 AS = '7JA2j5D6sCc9o9VX2S6IZgp17QTqxNj9cNHkQEVc94yAX' #ACCESS_TOKEN_SECRET
 
 
-# In[5]:
+# In[10]:
 
 
 class TwitterAPI:
@@ -58,7 +58,7 @@ class TwitterAPI:
             tweet_list = self.__picup_tweet_text(timelines)
             print(str(cnt)+'ループ目'+' max_id:' + str(self.max_id))
             cnt += 1
-        return timelines 
+        return tweet_list 
             
 
     def __create_text_from_timelines(self,timelines):
@@ -108,7 +108,7 @@ class TwitterAPI:
         '''    
         timelines = self.__fetch_timelines(user_id)
        # tweet_text = self.__create_text_from_timelines(timelines)
-        return tweet_text
+        return timelines
 
 
 # In[6]:
@@ -134,7 +134,7 @@ def get_timeline(user_id):
     return tweet_text
 
 
-# In[14]:
+# In[9]:
 
 
 import subprocess
