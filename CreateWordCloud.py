@@ -11,10 +11,10 @@ import GetTweet as gt
 import MorphologicalAnalysis as ma
 
 
-# In[6]:
+# In[2]:
 
 
-def create_word_cloud(text):
+def create_word_cloud(text,mask):
     stop_text = ''
     # wordcloudの設定
     wordcloud = WordCloud(mask = mask,
@@ -27,23 +27,29 @@ def create_word_cloud(text):
 
     # wordcloudの作成
     wordcloud.to_file('./wordcloud/wordcloud.png')
+    print('ワードクラウド出力')
 
 
-# In[7]:
+# In[3]:
 
 
 if __name__ == '__main__':
     mask = np.array(Image.open('apple.png'))
     mask = np.where(mask == 0, 0, 255)
     timeline = gt.get_timeline('Cuscha_661')
-    url_removed = ma.remove_url(timeline)
-    analyzed = ma.pic_and_analyze_noun(url_removed)
-    create_word_cloud(analyzed)
+    analyzed = ma.picup_noun(' '.join(timeline))
+    create_word_cloud(' '.join(analyzed),mask)
 
 
-# In[58]:
+# In[8]:
 
 
 import subprocess
 subprocess.run(['jupyter', 'nbconvert', '--to', 'python', 'CreateWordCloud.ipynb'])
+
+
+# In[ ]:
+
+
+
 
