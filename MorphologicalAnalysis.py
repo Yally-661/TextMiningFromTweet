@@ -8,29 +8,32 @@ import re
 import MeCab
 
 
-# In[1]:
+# In[27]:
 
 
-def remove_url_from_text(text):
+def remove_url_and_mention_from_text(text,url = True,mention = True):
     '''
-    文字列からurlをすべて取り除く
+    文字列からurlと@メンションをすべて取り除く
 
     Parameters
     ----------
     text : str
-        urlを取り除く文字列
+        urlと@メンションを取り除く文字列
 
     Returns
     -------
     r : str
-        urlを取り除いた文字列
+        urlと@メンションを取り除いた文字列
 
     '''
-    r = re.sub("https?://[\w/:%#\$&\?\(\)~\.=\+\-]+",' ',text)
+    if url:
+        text = re.sub("https?://[\w/:%#\$&\?\(\)~\.=\+\-]+",' ',text)
+    if mention:
+        r = re.sub(r"@([A-Za-z0-9_]+) ",' ',text)
     return r
 
 
-# In[8]:
+# In[28]:
 
 
 def picup_noun(text):
@@ -48,8 +51,7 @@ def picup_noun(text):
         名詞のみを抽出したリスト
 
     '''
-    url_removed = remove_url_from_text(text)    
-    print(url_removed)
+    url_removed = remove_url_and_mention_from_text(text)    
     m = MeCab.Tagger ()
     splitted = []
     for x in m.parse(url_removed).splitlines()[:-1] :
@@ -59,7 +61,7 @@ def picup_noun(text):
     return splitted
 
 
-# In[9]:
+# In[29]:
 
 
 import subprocess
