@@ -8,10 +8,10 @@ import re
 import MeCab
 
 
-# In[30]:
+# In[1]:
 
 
-def remove_url(text):
+def remove_url_from_text(text):
     '''
     文字列からurlをすべて取り除く
 
@@ -30,10 +30,10 @@ def remove_url(text):
     return r
 
 
-# In[31]:
+# In[3]:
 
 
-def pic_and_analyze_noun(text):
+def picup_noun(text):
     '''
     文字列を形態素解析し名詞のみを抽出する
 
@@ -44,8 +44,8 @@ def pic_and_analyze_noun(text):
 
     Returns
     -------
-    ' '.join(splitted) : str
-        名詞のみを抽出した文字列(スペース区切り)
+    splitted : list
+        名詞のみを抽出したリスト
 
     '''
     m = MeCab.Tagger ()
@@ -54,10 +54,10 @@ def pic_and_analyze_noun(text):
         if x.split('\t')[1].split(',')[0] in ['名詞']:
             splitted.append(x.split('\t')[0])
     
-    return ' '.join(splitted)
+    return splitted
 
 
-# In[32]:
+# In[33]:
 
 
 import subprocess
