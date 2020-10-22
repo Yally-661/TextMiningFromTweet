@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
+# In[2]:
 
 
 import re
@@ -10,7 +10,7 @@ import sys
 from requests_oauthlib import OAuth1Session
 
 
-# In[4]:
+# In[3]:
 
 
 CK = 'GH9vERo5nlddVVREXFIpaGAst' #CONSUMER_KEY
@@ -19,7 +19,7 @@ AT = '1090500433-zanofeFnpZf0PeJrkhCuk6FzF1Cgq1mq7etWwzN' #ACCESS_TOKEN
 AS = '7JA2j5D6sCc9o9VX2S6IZgp17QTqxNj9cNHkQEVc94yAX' #ACCESS_TOKEN_SECRET
 
 
-# In[12]:
+# In[24]:
 
 
 class TwitterAPI:
@@ -40,11 +40,12 @@ class TwitterAPI:
         Returns
         -------
         tweet_list : list
-            全ツイート内容
+            ツイート本文(最大3200件)
 
         '''
         #要エラーハンドリング追加
         tweet_list = []
+        unavailable_cnt = 0
         cnt = 1
         url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
         params = {'count':'200','include_rts':'false','screen_name':user_id}
@@ -52,10 +53,20 @@ class TwitterAPI:
             if self.max_id != 0:
                 params['max_id'] = self.max_id
             res = self.session.get(url,params = params)
+            if res.status_code == 503:
+                #503 Service Unavailable
+                unavailable_cnt += 1
+                if unavailable_cnt == 10:
+                    raise Exception('Twitter API error %d' % res.status_code)
+                print('503:'+str(unavailable_cnt)+'回目')
+                continue;
+            if res.status_code != 200:
+                #503以外のエラーの場合
+                raise Exception('Twitter API error %d' % res.status_code)
             timelines = json.loads(res.text)
             if len(timelines) == 0:
                 break
-            tweet_list = self.__picup_tweet_text(timelines)
+            tweet_list = self.__picup_text_and_set_max_id(tweet_list,timelines)
             print(str(cnt)+'ループ目'+' max_id:' + str(self.max_id))
             cnt += 1
         return tweet_list 
@@ -82,8 +93,7 @@ class TwitterAPI:
         return tweet_text
 
     
-    def __picup_tweet_text(self,timelines):
-        tweet_list = []
+    def __picup_text_and_set_max_id(self,tweet_list,timelines):
         for tweet in timelines:
             tweet_list.append(tweet['text'])
         self.max_id = tweet['id']-1
@@ -111,7 +121,7 @@ class TwitterAPI:
         return timelines
 
 
-# In[6]:
+# In[9]:
 
 
 def get_timeline(user_id):
@@ -134,7 +144,7 @@ def get_timeline(user_id):
     return tweet_text
 
 
-# In[11]:
+# In[25]:
 
 
 import subprocess
