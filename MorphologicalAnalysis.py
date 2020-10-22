@@ -8,7 +8,7 @@ import re
 import MeCab
 
 
-# In[27]:
+# In[31]:
 
 
 def remove_url_and_mention_from_text(text,url = True,mention = True):
@@ -29,11 +29,11 @@ def remove_url_and_mention_from_text(text,url = True,mention = True):
     if url:
         text = re.sub("https?://[\w/:%#\$&\?\(\)~\.=\+\-]+",' ',text)
     if mention:
-        r = re.sub(r"@([A-Za-z0-9_]+) ",' ',text)
-    return r
+        text = re.sub(r"@([A-Za-z0-9_]+) ",' ',text)
+    return text
 
 
-# In[28]:
+# In[32]:
 
 
 def picup_noun(text):
@@ -61,7 +61,7 @@ def picup_noun(text):
     return splitted
 
 
-# In[29]:
+# In[30]:
 
 
 import subprocess
