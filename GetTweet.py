@@ -19,7 +19,7 @@ AT = '1090500433-zanofeFnpZf0PeJrkhCuk6FzF1Cgq1mq7etWwzN' #ACCESS_TOKEN
 AS = '7JA2j5D6sCc9o9VX2S6IZgp17QTqxNj9cNHkQEVc94yAX' #ACCESS_TOKEN_SECRET
 
 
-# In[29]:
+# In[31]:
 
 
 class TwitterAPI:
@@ -68,27 +68,6 @@ class TwitterAPI:
                 break
             tweet_list = self.__picup_text_and_set_max_id(tweet_list,timelines)
         return tweet_list 
-            
-
-    def __create_text_from_timelines(self,timelines):
-        '''
-        Twitter APIから抽出したタイムラインの本文を文字列にまとめる
-
-        Parameters
-        ----------
-        timelines : dict
-            Twitter APIから取得したタイムライン
-
-        Returns
-        -------
-        tweet_text : str
-            ツイートの本文をすべてまとめたもの(半角スペース区切り)
-
-        '''
-        tweet_text = ''
-        for tweet in timelines:
-            tweet_text += tweet['text'] + ' '
-        return tweet_text
 
     
     def __picup_text_and_set_max_id(self,tweet_list,timelines):
@@ -142,7 +121,7 @@ def get_timeline(user_id):
     return tweet_text
 
 
-# In[26]:
+# In[32]:
 
 
 import subprocess
