@@ -19,7 +19,7 @@ AT = '1090500433-zanofeFnpZf0PeJrkhCuk6FzF1Cgq1mq7etWwzN' #ACCESS_TOKEN
 AS = '7JA2j5D6sCc9o9VX2S6IZgp17QTqxNj9cNHkQEVc94yAX' #ACCESS_TOKEN_SECRET
 
 
-# In[24]:
+# In[29]:
 
 
 class TwitterAPI:
@@ -43,7 +43,6 @@ class TwitterAPI:
             ツイート本文(最大3200件)
 
         '''
-        #要エラーハンドリング追加
         tweet_list = []
         unavailable_cnt = 0
         cnt = 1
@@ -58,7 +57,8 @@ class TwitterAPI:
                 unavailable_cnt += 1
                 if unavailable_cnt == 10:
                     raise Exception('Twitter API error %d' % res.status_code)
-                print('503:'+str(unavailable_cnt)+'回目')
+                #503エラー10回で処理中断
+                print('503: %d 回目' % unavailable_cnt)
                 continue;
             if res.status_code != 200:
                 #503以外のエラーの場合
@@ -67,8 +67,6 @@ class TwitterAPI:
             if len(timelines) == 0:
                 break
             tweet_list = self.__picup_text_and_set_max_id(tweet_list,timelines)
-            print(str(cnt)+'ループ目'+' max_id:' + str(self.max_id))
-            cnt += 1
         return tweet_list 
             
 
@@ -112,8 +110,8 @@ class TwitterAPI:
 
         Returns
         -------
-        tweet_text : str
-            ツイートの本文をすべてまとめたもの(半角スペース区切り)
+        timelines : list
+            ツイートの本文(最大3200件)
 
         '''    
         timelines = self.__fetch_timelines(user_id)
@@ -121,7 +119,7 @@ class TwitterAPI:
         return timelines
 
 
-# In[9]:
+# In[28]:
 
 
 def get_timeline(user_id):
@@ -144,7 +142,7 @@ def get_timeline(user_id):
     return tweet_text
 
 
-# In[25]:
+# In[26]:
 
 
 import subprocess
