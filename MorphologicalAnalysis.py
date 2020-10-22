@@ -30,7 +30,7 @@ def remove_url_from_text(text):
     return r
 
 
-# In[3]:
+# In[8]:
 
 
 def picup_noun(text):
@@ -48,16 +48,18 @@ def picup_noun(text):
         名詞のみを抽出したリスト
 
     '''
+    url_removed = remove_url_from_text(text)    
+    print(url_removed)
     m = MeCab.Tagger ()
     splitted = []
-    for x in m.parse(text).splitlines()[:-1] :
+    for x in m.parse(url_removed).splitlines()[:-1] :
         if x.split('\t')[1].split(',')[0] in ['名詞']:
             splitted.append(x.split('\t')[0])
     
     return splitted
 
 
-# In[33]:
+# In[9]:
 
 
 import subprocess
