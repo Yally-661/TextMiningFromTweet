@@ -19,7 +19,7 @@ AT = '1090500433-zanofeFnpZf0PeJrkhCuk6FzF1Cgq1mq7etWwzN' #ACCESS_TOKEN
 AS = '7JA2j5D6sCc9o9VX2S6IZgp17QTqxNj9cNHkQEVc94yAX' #ACCESS_TOKEN_SECRET
 
 
-# In[31]:
+# In[34]:
 
 
 class TwitterAPI:
@@ -94,7 +94,6 @@ class TwitterAPI:
 
         '''    
         timelines = self.__fetch_timelines(user_id)
-       # tweet_text = self.__create_text_from_timelines(timelines)
         return timelines
 
 
@@ -121,7 +120,7 @@ def get_timeline(user_id):
     return tweet_text
 
 
-# In[32]:
+# In[33]:
 
 
 import subprocess
