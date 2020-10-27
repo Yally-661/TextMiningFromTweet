@@ -58,14 +58,13 @@ def picup_noun(text):
     for x in m.parse(url_removed).splitlines()[:-1] :
         if x.split('\t')[1].split(',')[0] in ['名詞']:
             if re.match(r"[ぁ-ん]+", x.split('\t')[0]):
-                print(x.split('\t')[0])
                 continue
             splitted.append(x.split('\t')[0])
             
     return splitted
 
 
-# In[18]:
+# In[19]:
 
 
 import subprocess
