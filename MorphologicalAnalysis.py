@@ -8,7 +8,7 @@ import re
 import MeCab
 
 
-# In[31]:
+# In[7]:
 
 
 def remove_url_and_mention_from_text(text,url = True,mention = True):
@@ -33,7 +33,7 @@ def remove_url_and_mention_from_text(text,url = True,mention = True):
     return text
 
 
-# In[32]:
+# In[16]:
 
 
 def picup_noun(text):
@@ -49,6 +49,7 @@ def picup_noun(text):
     -------
     splitted : list
         名詞のみを抽出したリスト
+        ひらがな始まり、url、メンション除く
 
     '''
     url_removed = remove_url_and_mention_from_text(text)    
@@ -56,12 +57,15 @@ def picup_noun(text):
     splitted = []
     for x in m.parse(url_removed).splitlines()[:-1] :
         if x.split('\t')[1].split(',')[0] in ['名詞']:
+            if re.match(r"[ぁ-ん]+", x.split('\t')[0]):
+                print(x.split('\t')[0])
+                continue
             splitted.append(x.split('\t')[0])
-    
+            
     return splitted
 
 
-# In[30]:
+# In[18]:
 
 
 import subprocess
