@@ -1,25 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
-
-
 import re
 import json
 import sys
+import setting
 from requests_oauthlib import OAuth1Session
 
 
-# In[3]:
-
-
-CK = 'GH9vERo5nlddVVREXFIpaGAst' #CONSUMER_KEY
-CS = 'K6Rs5QeT7v9i0b5d5SlxxN4rJqaE9O4dxV5bgdFnKnvpCsMbUI' #CONSUMER_KEY_SECRET
-AT = '1090500433-zanofeFnpZf0PeJrkhCuk6FzF1Cgq1mq7etWwzN' #ACCESS_TOKEN
-AS = '7JA2j5D6sCc9o9VX2S6IZgp17QTqxNj9cNHkQEVc94yAX' #ACCESS_TOKEN_SECRET
-
-
-# In[34]:
+CK = setting.CK #CONSUMER_KEY
+CS = setting.CS #CONSUMER_KEY_SECRET
+AT = setting.AT #ACCESS_TOKEN
+AS = setting.AS #ACCESS_TOKEN_SECRET
 
 
 class TwitterAPI:
@@ -95,39 +87,6 @@ class TwitterAPI:
         '''    
         timelines = self.__fetch_timelines(user_id)
         return timelines
-
-
-# In[28]:
-
-
-def get_timeline(user_id):
-    '''
-    ユーザーIDからTwitterタイムラインの本文テキストを取得する(RT除く)
-
-    Parameters
-    ----------
-    user_id : str
-        タイムラインを取得するユーザーID
-
-    Returns
-    -------
-    tweet_text : str
-        ツイートの本文をすべてまとめたもの(半角スペース区切り)
-
-    '''               
-    api = TwitterAPI()
-    tweet_text = api.get_timeline(user_id)
-    return tweet_text
-
-
-# In[33]:
-
-
-import subprocess
-subprocess.run(['jupyter', 'nbconvert', '--to', 'python', 'GetTweet.ipynb'])
-
-
-# In[ ]:
 
 
 
