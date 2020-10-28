@@ -1,14 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[29]:
-
-
 import re
 import MeCab
-
-
-# In[7]:
 
 
 def remove_url_and_mention_from_text(text,url = True,mention = True):
@@ -33,9 +27,6 @@ def remove_url_and_mention_from_text(text,url = True,mention = True):
     return text
 
 
-# In[16]:
-
-
 def picup_noun(text):
     '''
     文字列を形態素解析し名詞のみを抽出する
@@ -55,24 +46,15 @@ def picup_noun(text):
     url_removed = remove_url_and_mention_from_text(text)    
     m = MeCab.Tagger ()
     splitted = []
+    pattern = r'[ぁ-ん]+'
+    con = re.compile(pattern)
     for x in m.parse(url_removed).splitlines()[:-1] :
         if x.split('\t')[1].split(',')[0] in ['名詞']:
-            if re.match(r"[ぁ-ん]+", x.split('\t')[0]):
+            if con.match(x.split('\t')[0]):
                 continue
             splitted.append(x.split('\t')[0])
             
     return splitted
-
-
-# In[19]:
-
-
-import subprocess
-subprocess.run(['jupyter', 'nbconvert', '--to', 'python', 'MorphologicalAnalysis.ipynb'])
-
-
-# In[ ]:
-
 
 
 
