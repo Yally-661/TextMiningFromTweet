@@ -1,2 +1,2 @@
 # TextMining
- text mineing program from tweet
+ ツイッターのユーザーIDからツイートを取得しツイート内の名詞からワードクラウドを作成します
