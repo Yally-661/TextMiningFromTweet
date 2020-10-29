@@ -6,6 +6,6 @@ pip install word
 pip install MeCab  
 
 ## Usage    
- setting.pyに諸情報を設定してください  
+ setting.pyに諸情報を設定後CreateWordCloudを実行してください  
  取得できるのは最新のツイート3200件程度までです
  
